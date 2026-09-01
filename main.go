@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"context"
-	. "github.com/websummoner/ggr/config"
+	"github.com/websummoner/ggr/config"
 	"os"
 	"os/signal"
 	"syscall"
@@ -53,7 +53,7 @@ func loadQuotaFiles(quotaDir string) error {
 func loadQuotaFile(file string) {
 	fileName := filepath.Base(file)
 	quotaName := strings.TrimSuffix(fileName, filepath.Ext(fileName))
-	var browsers Browsers
+	var browsers config.Browsers
 	err := readConfig(file, &browsers)
 	if err != nil {
 		log.Printf("[-] [-] [INIT] [-] [-] [-] [-] [-] [-] [Failed to load configuration from \"%s\": %v]\n", fileName, err)
@@ -65,7 +65,7 @@ func loadQuotaFile(file string) {
 	}
 }
 
-func updateQuota(quotaName string, browsers Browsers) {
+func updateQuota(quotaName string, browsers config.Browsers) {
 	confLock.Lock()
 	defer confLock.Unlock()
 	quota[quotaName] = ggrBrowsers{browsers}

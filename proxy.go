@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/abbot/go-http-auth"
-	. "github.com/websummoner/ggr/config"
+	"github.com/websummoner/ggr/config"
 	"golang.org/x/net/websocket"
 )
 
@@ -85,7 +85,7 @@ var (
 )
 
 // Routes - an MD5 to host map
-type Routes map[string]*Host
+type Routes map[string]*config.Host
 
 type caps map[string]interface{}
 
@@ -190,7 +190,7 @@ func (c caps) setVersion(version string) {
 	})
 }
 
-func session(ctx context.Context, h *Host, header http.Header, c caps) (map[string]interface{}, int) {
+func session(ctx context.Context, h *config.Host, header http.Header, c caps) (map[string]interface{}, int) {
 	b, _ := json.Marshal(c)
 	req, err := http.NewRequest(http.MethodPost, sessionURL(h), bytes.NewReader(b))
 	if err != nil {
@@ -407,14 +407,17 @@ loop:
 }
 
 func secondsSince(start time.Time) float64 {
-	return time.Now().Sub(start).Seconds()
+	return time.Since(start).Seconds()
 }
 
 func proxy(w http.ResponseWriter, r *http.Request) {
 	id := serial()
 	(&httputil.ReverseProxy{
-		Director: func(r *http.Request) {
-			_, remote := info(r)
+		// Read the client before SetXForwarded overwrites the header.
+		Rewrite: func(pr *httputil.ProxyRequest) {
+			_, remote := info(pr.In)
+			pr.SetXForwarded()
+			r := pr.Out
 			r.URL.Scheme = "http"
 			if len(r.URL.Path) > tail {
 				sum := r.URL.Path[head:tail]
@@ -519,7 +522,7 @@ func host(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("[%d] [-] [HOST_INFO_REQUESTED] [%s] [%s] [-] [%s] [%s] [-] [-]\n", id, user, remote, h.Name, sum)
 	w.Header().Set("Content-Type", "application/json")
-	_ = json.NewEncoder(w).Encode(Host{Name: h.Name, Port: h.Port, Count: h.Count})
+	_ = json.NewEncoder(w).Encode(config.Host{Name: h.Name, Port: h.Port, Count: h.Count})
 }
 
 func quotaInfo(w http.ResponseWriter, r *http.Request) {
@@ -572,7 +575,7 @@ func withCloseNotifier(handler http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func readConfig(fn string, browsers *Browsers) error {
+func readConfig(fn string, browsers *config.Browsers) error {
 	file, err := os.ReadFile(fn)
 	if err != nil {
 		return fmt.Errorf("error reading configuration file %s: %v", fn, err)
@@ -583,7 +586,7 @@ func readConfig(fn string, browsers *Browsers) error {
 	return nil
 }
 
-func appendRoutes(routes Routes, config *Browsers) Routes {
+func appendRoutes(routes Routes, config *config.Browsers) Routes {
 	for _, b := range config.Browsers {
 		for _, v := range b.Versions {
 			for _, r := range v.Regions {
@@ -599,7 +602,7 @@ func appendRoutes(routes Routes, config *Browsers) Routes {
 	return routes
 }
 
-func createVNCInfo(h Host) *VncInfo {
+func createVNCInfo(h config.Host) *config.VncInfo {
 	vncURL := h.VNC
 	if vncURL != "" {
 		u, err := url.Parse(vncURL)
@@ -611,7 +614,7 @@ func createVNCInfo(h Host) *VncInfo {
 			log.Printf("[-] [-] [UNSUPPORTED_HOST_VNC_SCHEME] [-] [-] [%s] [%s] [-] [-] [-]\n", vncURL, fmt.Sprintf("%s:%d", h.Name, h.Port))
 			return nil
 		}
-		vncInfo := VncInfo{
+		vncInfo := config.VncInfo{
 			Scheme: u.Scheme,
 			Path:   u.Path,
 		}
@@ -623,9 +626,14 @@ func createVNCInfo(h Host) *VncInfo {
 }
 
 func requireBasicAuth(authenticator *auth.BasicAuth, handler func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request) {
-	return authenticator.Wrap(func(w http.ResponseWriter, r *auth.AuthenticatedRequest) {
-		handler(w, &r.Request)
-	})
+	return func(w http.ResponseWriter, r *http.Request) {
+		ctx := authenticator.NewContext(r.Context(), r)
+		if i := auth.FromContext(ctx); i == nil || i.Username == "" {
+			authenticator.RequireAuth(w, r)
+			return
+		}
+		handler(w, r.WithContext(ctx))
+	}
 }
 
 // WithSuitableAuthentication handles basic authentication and guest quota processing
@@ -730,7 +738,7 @@ func proxyConn(id uint64, wsconn *websocket.Conn, conn net.Conn, err error, sess
 	defer conn.Close()
 	wsconn.PayloadType = websocket.BinaryFrame
 	go func() {
-		io.Copy(wsconn, conn)
+		_, _ = io.Copy(wsconn, conn)
 		_ = wsconn.Close()
 		log.Printf("[%d] [-] [WS_SESSION_CLOSED] [-] [-] [-] [%s] [%s] [-] [-]", id, address, sessionID)
 	}()
@@ -786,7 +794,9 @@ func proxyStatic(w http.ResponseWriter, r *http.Request, route string, invalidUr
 	remainder := path[tail:]
 	if ok {
 		(&httputil.ReverseProxy{
-			Director: func(r *http.Request) {
+			Rewrite: func(pr *httputil.ProxyRequest) {
+				pr.SetXForwarded()
+				r := pr.Out
 				r.URL.Scheme = "http"
 				if h.Scheme != "" {
 					r.URL.Scheme = h.Scheme
