@@ -3,3 +3,6 @@
 ggr
 coverage.*
 ggr.exe
+
+# cross-compiled release binaries
+dist/

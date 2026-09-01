@@ -25,6 +25,11 @@ export default defineConfig({
       description:
         'A lightweight active load balancer used to create scalable and highly-available Selenium clusters. Developed and maintained by RIADVICE.',
       favicon: '/img/favicon.png',
+      head: [
+        { tag: 'meta', attrs: { property: 'og:image', content: 'https://websummoner.github.io/ggr/img/og-image.jpg' } },
+        { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: 'https://websummoner.github.io/ggr/img/og-image.jpg' } },
+      ],
       customCss: ['./src/styles/custom.css'],
       social: [
         {
