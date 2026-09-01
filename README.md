@@ -1,8 +1,8 @@
 # Go Grid Router
-[![Build Status](https://github.com/WebSummoner/ggr/workflows/build/badge.svg)](https://github.com/WebSummoner/ggr/actions?query=workflow%3Abuild)
-[![Coverage](https://codecov.io/github/websummoner/ggr/coverage.svg)](https://codecov.io/gh/websummoner/ggr)
-[![GoReport](https://goreportcard.com/badge/github.com/WebSummoner/ggr)](https://goreportcard.com/report/github.com/WebSummoner/ggr)
-[![Release](https://img.shields.io/github/release/websummoner/ggr.svg)](https://github.com/WebSummoner/ggr/releases/latest)
+[![Build](https://github.com/WebSummoner/ggr/actions/workflows/build.yml/badge.svg)](https://github.com/WebSummoner/ggr/actions/workflows/build.yml)
+[![Lint](https://github.com/WebSummoner/ggr/actions/workflows/lint.yml/badge.svg)](https://github.com/WebSummoner/ggr/actions/workflows/lint.yml)
+[![codecov](https://codecov.io/gh/websummoner/ggr/graph/badge.svg?token=IEON28O0E1)](https://codecov.io/gh/websummoner/ggr)
+[![Release](https://img.shields.io/github/release/WebSummoner/ggr.svg)](https://github.com/WebSummoner/ggr/releases/latest)
 [![Docker Pulls](https://img.shields.io/docker/pulls/websummoner/ggr.svg)](https://hub.docker.com/r/websummoner/ggr)
 
 **GGR is maintained by [RIADVICE](https://riadvice.com) under the WebSummoner project**, kept up to date alongside WebSummoner.

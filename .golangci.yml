@@ -1,9 +1,7 @@
 # golangci-lint configuration.
 #
-# This replaces goreportcard, which was retired. Unlike a passive scan, these
-# linters run in CI and gate the build.
-#
-# The full default set is enabled and the tree passes it.
+# Runs in CI and gates the build. The full default set is enabled and the
+# tree passes it.
 version: "2"
 
 linters:
