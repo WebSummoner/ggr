@@ -1,0 +1,26 @@
+---
+title: Proxying downloaded files
+description: Retrieve files downloaded by the browser in a running session through Ggr.
+sidebar:
+  order: 6
+---
+
+Similarly to proxying video files Ggr is able to return any files downloaded by
+browser in **running** Selenium session.
+
+1. Downloaded files are expected to be stored on the hub hosts and accessible
+   via the following URL:
+
+   ```
+   http://hub-host.example.com:4444/download/<real-session-id>/filename.txt
+   ```
+
+   Such notation for example is supported by
+   [WebSummoner](https://websummoner.github.io/websummoner/).
+
+2. To get downloaded file via Ggr just use the same request but with the
+   session ID returned to test:
+
+   ```bash
+   curl http://ggr-host.example.com:4444/download/<test-session-id>/filename.txt
+   ```

@@ -1,0 +1,44 @@
+---
+title: Ggr
+head:
+  - tag: title
+    content: Ggr — Selenium load balancer
+description: A lightweight active load balancer used to create scalable and highly-available Selenium clusters.
+template: splash
+hero:
+  tagline: A lightweight active load balancer used to create scalable and highly-available Selenium clusters.
+  actions:
+    - text: Quick start
+      link: quick-start/
+      icon: right-arrow
+    - text: View on GitHub
+      link: https://github.com/WebSummoner/ggr
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<figure class="hero-figure">
+  <img src="/img/ggr-animation.gif" alt="A test request routed through Ggr to one of several Selenium hosts" />
+</figure>
+
+
+<CardGrid stagger>
+  <Card title="Stateless by design" icon="random">
+    Run as many instances as you like behind a load balancer. The hub host is
+    encoded into the session ID, so any instance can serve any request.
+  </Card>
+  <Card title="Quota per user" icon="document">
+    Each user gets an XML quota file describing the browsers, versions, regions
+    and hosts available to them.
+  </Card>
+  <Card title="Proxies everything" icon="puzzle">
+    Video, logs, downloaded files, VNC traffic and developer tools are all
+    proxied through Ggr using the session ID your test already has.
+  </Card>
+  <Card title="Works with external services" icon="external">
+    Point a quota entry at Saucelabs, BrowserStack or TestingBot and Ggr routes
+    to them with the credentials from the quota file.
+  </Card>
+</CardGrid>

@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/abbot/go-http-auth"
-	. "github.com/aerokube/ggr/config"
+	. "github.com/websummoner/ggr/config"
 	"golang.org/x/net/websocket"
 )
 
@@ -332,9 +332,14 @@ func route(w http.ResponseWriter, r *http.Request) {
 loop:
 	for h, i := choose(hosts); ; h, i = choose(hosts) {
 		count++
+		// Ask backends to reply immediately when several hosts are possible.
+		// Both spellings are handled for compatibility with WebSummoner and
+		// legacy Selenoid backends.
 		r.Header.Del("X-Selenoid-No-Wait")
+		r.Header.Del("X-WebSummoner-No-Wait")
 		if len(hosts) != 1 {
 			r.Header.Add("X-Selenoid-No-Wait", "")
+			r.Header.Add("X-WebSummoner-No-Wait", "")
 		}
 		if h == nil {
 			break loop

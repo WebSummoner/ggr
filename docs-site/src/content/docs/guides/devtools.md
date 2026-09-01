@@ -1,0 +1,14 @@
+---
+title: Proxying browser developer tools
+description: Access the CDP WebSocket of a running session through Ggr.
+sidebar:
+  order: 7
+---
+
+Similarly to proxying VNC traffic Ggr is able to proxy browser developer tools
+traffic in **running** Selenium session. To access developer tools — just use
+the following web socket URL:
+
+```
+ws://ggr-host.example.com:4444/devtools/<session-id>
+```

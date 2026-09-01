@@ -7,12 +7,12 @@ jobs:
   golang:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
       - name: Setup Golang
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v7
         with:
-          go-version: ~1.21.5
+          go-version: ~1.27.0
 
       - uses: actions/cache@v1
         with:
@@ -27,6 +27,9 @@ jobs:
       - name: Build
         run: ci/build.sh
 
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v7
         with:
+          files: coverage.txt
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: WebSummoner/ggr
           flags: go

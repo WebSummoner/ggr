@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"context"
-	. "github.com/aerokube/ggr/config"
+	. "github.com/websummoner/ggr/config"
 	"os"
 	"os/signal"
 	"syscall"
@@ -106,7 +106,7 @@ func init() {
 	if err := loadQuotaFiles(quotaDir); err != nil {
 		log.Fatalf("[-] [-] [INIT] [-] [-] [-] [-] [-] [-] [%v]\n", err)
 	}
-	sig := make(chan os.Signal)
+	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGHUP)
 	go func() {
 		for {
@@ -120,7 +120,7 @@ func init() {
 }
 
 func main() {
-	stop := make(chan os.Signal)
+	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
 
 	server := &http.Server{

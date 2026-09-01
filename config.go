@@ -1,7 +1,7 @@
 package main
 
 import (
-	. "github.com/aerokube/ggr/config"
+	. "github.com/websummoner/ggr/config"
 	"math/rand"
 	"strings"
 )

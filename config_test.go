@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	. "github.com/aerokube/ggr/config"
+	. "github.com/websummoner/ggr/config"
 )
 
 func init() {

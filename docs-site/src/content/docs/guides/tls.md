@@ -1,9 +1,17 @@
-== Encrypting Connection to Ggr
+---
+title: Encrypting the connection
+description: Terminate TLS and WebSocket Secure in front of Ggr with an Nginx reverse proxy.
+sidebar:
+  order: 8
+---
 
-Ggr itself does not support any modern encryption technologies such as https://en.wikipedia.org/wiki/Transport_Layer_Security[TLS] or https://en.wikipedia.org/wiki/WebSocket[WebSocket Secure]. In order to use them you are expected to set up a reverse proxy having such capabilities. A typical http://nginx.org/[Nginx] configuration looks like the following:
+Ggr itself does not support any modern encryption technologies such as
+[TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) or
+[WebSocket Secure](https://en.wikipedia.org/wiki/WebSocket). In order to use
+them you are expected to set up a reverse proxy having such capabilities. A
+typical [Nginx](http://nginx.org/) configuration looks like the following:
 
-.Nginx's configuration for encrypted connection
-----
+```nginx title="Nginx configuration for encrypted connection"
 map $http_upgrade $connection_upgrade {
     default upgrade;
     ''      close;
@@ -64,5 +72,4 @@ server {
   }
 
 }
-----
-
+```

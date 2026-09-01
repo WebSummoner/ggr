@@ -19,8 +19,8 @@ import (
 	"strings"
 
 	"github.com/abbot/go-http-auth"
-	. "github.com/aerokube/ggr/config"
 	assert "github.com/stretchr/testify/require"
+	. "github.com/websummoner/ggr/config"
 	"golang.org/x/net/websocket"
 	"os"
 	"path/filepath"
@@ -894,11 +894,11 @@ func TestStartSessionWithDefaultVersionW3C(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Equal(t, sess["capabilities"]["alwaysMatch"]["browserVersion"], "2.0")
 
-		so, ok := sess["capabilities"]["alwaysMatch"]["selenoid:options"]
+		so, ok := sess["capabilities"]["alwaysMatch"]["websummoner:options"]
 		assert.True(t, ok)
-		selenoidOptions, ok := so.(map[string]interface{})
+		websummonerOptions, ok := so.(map[string]interface{})
 		assert.True(t, ok)
-		_, ok = selenoidOptions["browserVersion"]
+		_, ok = websummonerOptions["browserVersion"]
 		assert.False(t, ok)
 	}))
 	selenium := httptest.NewServer(mux)
@@ -925,7 +925,7 @@ func TestStartSessionWithDefaultVersionW3C(t *testing.T) {
 		}}}}
 	updateQuota(user, browsers)
 
-	_, _ = createSession(`{"capabilities":{"alwaysMatch":{"browserName":"browser", "selenoid:options": {"labels": {"some-key": "some-value"}}}}}`)
+	_, _ = createSession(`{"capabilities":{"alwaysMatch":{"browserName":"browser", "websummoner:options": {"labels": {"some-key": "some-value"}}}}}`)
 }
 
 func TestClientClosedConnection(t *testing.T) {

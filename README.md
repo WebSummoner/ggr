@@ -1,11 +1,11 @@
 # Go Grid Router
-[![Build Status](https://github.com/aerokube/ggr/workflows/build/badge.svg)](https://github.com/aerokube/ggr/actions?query=workflow%3Abuild)
-[![Coverage](https://codecov.io/github/aerokube/ggr/coverage.svg)](https://codecov.io/gh/aerokube/ggr)
-[![GoReport](https://goreportcard.com/badge/github.com/aerokube/ggr)](https://goreportcard.com/report/github.com/aerokube/ggr)
-[![Release](https://img.shields.io/github/release/aerokube/ggr.svg)](https://github.com/aerokube/ggr/releases/latest)
-[![Docker Pulls](https://img.shields.io/docker/pulls/aerokube/ggr.svg)](https://hub.docker.com/r/aerokube/ggr)
+[![Build Status](https://github.com/WebSummoner/ggr/workflows/build/badge.svg)](https://github.com/WebSummoner/ggr/actions?query=workflow%3Abuild)
+[![Coverage](https://codecov.io/github/websummoner/ggr/coverage.svg)](https://codecov.io/gh/websummoner/ggr)
+[![GoReport](https://goreportcard.com/badge/github.com/WebSummoner/ggr)](https://goreportcard.com/report/github.com/WebSummoner/ggr)
+[![Release](https://img.shields.io/github/release/websummoner/ggr.svg)](https://github.com/WebSummoner/ggr/releases/latest)
+[![Docker Pulls](https://img.shields.io/docker/pulls/websummoner/ggr.svg)](https://hub.docker.com/r/websummoner/ggr)
 
-**UNMAINTAINED**. Consider https://aerokube.com/moon/latest as alternative.
+**GGR is maintained by [RIADVICE](https://riadvice.com) under the WebSummoner project**, kept up to date alongside WebSummoner.
 
 Go Grid Router (aka Ggr) is a lightweight active load balancer used to create scalable and highly-available [Selenium](http://seleniumhq.org/) clusters.
 ![Ggr Animation](docs/img/ggr-animation.gif)
@@ -30,7 +30,7 @@ $ htpasswd -bc /etc/grid-router/users.htpasswd test test-password
 ```
 $ java -jar selenium-server-standalone.jar -port 4445
 ```
-You can also start [Selenoid](https://github.com/aerokube/selenoid) instead.
+You can also start [WebSummoner](https://github.com/WebSummoner/websummoner) instead.
 
 5) Create quota file (use correct browser name and version):
 ```
@@ -49,7 +49,7 @@ $ cat /etc/grid-router/quota/test.xml
 
 6) Start Ggr container:
 ```
-# docker run -d --name ggr -v /etc/grid-router/:/etc/grid-router:ro --net host aerokube/ggr:latest-release
+# docker run -d --name ggr -v /etc/grid-router/:/etc/grid-router:ro --net host websummoner/ggr:latest-release
 ```
 7) Access Ggr on port 4444 in the same way you do for Selenium Hub but using the following url:
 ```
@@ -58,4 +58,4 @@ http://test:test-password@localhost:4444/wd/hub
 
 ## Complete Guide & Build Instructions
 
-Complete reference guide (including build instructions) can be found at: http://aerokube.com/ggr/latest/
+Complete reference guide (including build instructions) can be found at: https://websummoner.github.io/ggr/
