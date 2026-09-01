@@ -2,8 +2,8 @@
 [![Build](https://github.com/WebSummoner/ggr/actions/workflows/build.yml/badge.svg)](https://github.com/WebSummoner/ggr/actions/workflows/build.yml)
 [![Lint](https://github.com/WebSummoner/ggr/actions/workflows/lint.yml/badge.svg)](https://github.com/WebSummoner/ggr/actions/workflows/lint.yml)
 [![codecov](https://codecov.io/gh/websummoner/ggr/graph/badge.svg?token=IEON28O0E1)](https://codecov.io/gh/websummoner/ggr)
-[![Release](https://img.shields.io/github/release/WebSummoner/ggr.svg)](https://github.com/WebSummoner/ggr/releases/latest)
-[![Docker Pulls](https://img.shields.io/docker/pulls/websummoner/ggr.svg)](https://hub.docker.com/r/websummoner/ggr)
+[![Release](https://img.shields.io/github/v/release/WebSummoner/ggr)](https://github.com/WebSummoner/ggr/releases/latest)
+[![Docker Pulls](https://img.shields.io/docker/pulls/websummoner/ggr)](https://hub.docker.com/r/websummoner/ggr)
 
 **GGR is maintained by [RIADVICE](https://riadvice.com) under the WebSummoner project**, kept up to date alongside WebSummoner.
 
