@@ -16,7 +16,7 @@ browser screen.
    ```
 
    This API for example is supported by
-   [WebSummoner](https://websummoner.github.io/websummoner/).
+   [WebSummoner](https://websummoner.riadvice.com/websummoner/).
 
 2. To download video file via Ggr just use the same request but with the
    session ID returned to test:

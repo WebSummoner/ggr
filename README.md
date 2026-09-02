@@ -58,4 +58,4 @@ http://test:test-password@localhost:4444/wd/hub
 
 ## Complete Guide & Build Instructions
 
-Complete reference guide (including build instructions) can be found at: https://websummoner.github.io/ggr/
+Complete reference guide (including build instructions) can be found at: https://websummoner.riadvice.com/ggr/

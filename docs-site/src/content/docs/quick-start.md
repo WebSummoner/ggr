@@ -19,7 +19,7 @@ To use Go Grid Router do the following:
    htpasswd -bc /etc/grid-router/users.htpasswd test test-password
    ```
 
-4. Start [WebSummoner](https://websummoner.github.io/websummoner/) on host
+4. Start [WebSummoner](https://websummoner.riadvice.com/websummoner/) on host
    `websummoner.example.com` and port `4444`.
 
 5. Create quota file (use correct browser name and version):

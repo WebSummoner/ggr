@@ -124,7 +124,7 @@ Two notations are supported in `vnc` attribute:
    ```
 
 2. If the remote server also returns VNC traffic on a web socket (which is a
-   case for [WebSummoner](https://websummoner.github.io/websummoner/)) — then
+   case for [WebSummoner](https://websummoner.riadvice.com/websummoner/)) — then
    you should specify a `ws://` URL without trailing `<session-id>` value:
 
    ```
